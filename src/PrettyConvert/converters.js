@@ -20,6 +20,7 @@ export const SIMPLE_TYPES = [
   'any',
   'void',
   'mixed',
+  'undefined'
 ];
 
 function printComplexType(type, components, depth) {
@@ -134,12 +135,30 @@ export const converters: { [string]: ?Function } = {
       </span>
     );
   },
+  arrayType: (type: K.Obj, components: Components, depth: number) => {
+    return (
+      <span>
+        <components.TypeMeta>Array</components.TypeMeta>
+        <AddBrackets
+          BracketStyler={components.TypeMeta}
+          openBracket="<"
+          closeBracket=">"
+        >
+          <components.Indent>
+            {prettyConvert(type.type, components, depth)}
+          </components.Indent>
+        </AddBrackets>
+      </span>
+    )
+  },
   property: (type: K.Property, components: Components, depth: number) => (
     <div key={convert(type.key)}>
+    {type.key && (
       <TypeMinWidth>
         <components.Type>{convert(type.key)}</components.Type>
-      </TypeMinWidth>{' '}
-      {type.value.kind !== 'generic' ? type.value.kind : ''}
+      </TypeMinWidth>
+    )}
+      {type.value.kind !== 'generic' ? ` ${type.value.kind}` : ' '}
       {type.optional ? null : (
         <components.Required> required</components.Required>
       )}{' '}
@@ -181,7 +200,7 @@ export const converters: { [string]: ?Function } = {
           {`${convert(type.returnType)}`}
         </span>
       );
-    } else if (simpleParameters || type.parameters.length < 2) {
+    } else if (simpleParameters || type.parameters.length <= 2) {
       return (
         <span>
           <AddBrackets BracketStyler={components.FunctionType}>
