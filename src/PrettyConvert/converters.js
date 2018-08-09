@@ -20,7 +20,6 @@ export const SIMPLE_TYPES = [
   'any',
   'void',
   'mixed',
-  'undefined'
 ];
 
 function printComplexType(type, components, depth) {
@@ -200,7 +199,7 @@ export const converters: { [string]: ?Function } = {
           {`${convert(type.returnType)}`}
         </span>
       );
-    } else if (simpleParameters || type.parameters.length <= 2) {
+    } else if (simpleParameters || type.parameters.length < 2) {
       return (
         <span>
           <AddBrackets BracketStyler={components.FunctionType}>
