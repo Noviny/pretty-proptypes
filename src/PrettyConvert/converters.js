@@ -134,7 +134,7 @@ export const converters: { [string]: ?Function } = {
       </span>
     );
   },
-  arrayType: (type: K.Obj, components: Components, depth: number) => {
+  arrayType: (type: K.ArrayType, components: Components, depth: number) => {
     return (
       <span>
         <components.TypeMeta>Array</components.TypeMeta>
