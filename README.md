@@ -1,3 +1,7 @@
+# The code for this package has been moved
+
+> To make a better unified dev loop, this package has been added to [a monorepo](https://github.com/atlassian/extract-react-types) for packages that work with `extract-react-types`. Future work will continue from there.
+
 # PrettyPropTypes
 
 PrettyPropTypes is designed to display the output of
